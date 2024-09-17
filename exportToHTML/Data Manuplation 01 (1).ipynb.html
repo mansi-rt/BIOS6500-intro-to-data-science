@@ -1,0 +1,920 @@
+<html>
+<head>
+<title>Data Manuplation 01 (1).ipynb</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #bcbec4;}
+.s1 { color: #bcbec4;}
+.s2 { color: #6aab73;}
+.s3 { color: #2aacb8;}
+.s4 { color: #cf8e6d;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Data Manuplation 01 (1).ipynb</font>
+</center></td></tr></table>
+<pre><span class="s0">{</span>
+ <span class="s2">&quot;cells&quot;</span><span class="s0">: [</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">3</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;821f332a-109c-437f-a3f9-60a6790e2d6b&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {</span>
+    <span class="s2">&quot;scrolled&quot;</span><span class="s0">: </span><span class="s4">true</span>
+   <span class="s0">},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Data Cleaning and Preparation Tutorial</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;#In this tutorial, we will learn how to clean and prepare data for analysis using Python and pandas. Data cleaning is an essential step in data science, as it ensures the accuracy and usability of the data.</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;# 1. Handling Missing Data</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">38</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;7ec4b60e-2bea-4cd5-9c42-7644f0bdda07&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;      Name   Age   Salary</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;0    Alice  25.0  50000.0</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1      Bob   NaN  60000.0</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2  Charlie  35.0      NaN</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3    David  45.0  80000.0</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4     None  50.0      NaN</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;import pandas as pd</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;import numpy as np</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;# Sample data with missing values</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data = pd.DataFrame({</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;    'Name': ['Alice', 'Bob', 'Charlie', 'David', None],</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;    'Age': [25, np.nan, 35, 45, 50],</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;    'Salary': [50000, 60000, np.nan, 80000, None]</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;})</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;markdown&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;08ebe03b-42aa-465c-b4f6-e23e993aa62d&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;*Explanation*: The above code creates a DataFrame with missing values represented by `NaN` for numeric columns (`Age`, `Salary`) and `None` for the object column (`Name`).</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">7</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;e80ab454-580b-471f-a908-0810bc8cfa27&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;    Name    Age  Salary</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;0  False  False   False</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1  False   True   False</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2  False  False    True</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3  False  False   False</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4   True  False    True</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Identifying missing data</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data.isna())</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;markdown&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;353b1d76-382e-4e31-9871-9704779d4c40&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;**Explanation:** The `isna()` method returns a DataFrame of the same shape as `data` with `True` indicating where missing values are present and `False` otherwise.</span><span class="s4">\r\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">8</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;09c9f1d5-5a9f-41ee-b707-4c0ea74de10c&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;      Name    Age        Salary</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;0    Alice  25.00  50000.000000</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1      Bob  38.75  60000.000000</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2  Charlie  35.00  63333.333333</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3    David  45.00  80000.000000</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4     None  50.00  63333.333333</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Filling missing data with column mean</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data['Age'] = data['Age'].fillna(data['Age'].mean())</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data['Salary'] = data['Salary'].fillna(data['Salary'].mean())</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;markdown&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;77e3f8f6-6f05-43ed-98ce-486abd8fd501&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;**Explanation:** The missing values in the `Age` and `Salary` columns are replaced with the mean of their respective columns using `fillna()`.</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s4">null</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;36636157-8638-48e8-92e7-e6dd5aaec063&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: []</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">9</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;ef51c4d7-f754-4e55-b688-1cb02e1f274e&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;      Name    Age        Salary</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;0    Alice  25.00  50000.000000</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1      Bob  38.75  60000.000000</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2  Charlie  35.00  63333.333333</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3    David  45.00  80000.000000</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Removing rows with missing data</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;cleaned_data = data.dropna()</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(cleaned_data)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;markdown&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;afe345fd-a3dc-4407-83ed-a281ce8c5a52&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;**Explanation:** The `dropna()` method removes any rows containing missing data.</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">10</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;5a60fa89-c981-4367-aabc-dd400a423e0d&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;      Name    Age        Salary</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;0    Alice  25.00  50000.000000</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1      Bob  38.75  60000.000000</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2  Charlie  35.00  63333.333333</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3    David  45.00  80000.000000</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4     None  50.00  63333.333333</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;print(data)&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s4">null</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;9188c967-ea49-4441-944b-33a6d3605637&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: []</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">11</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;5a9f7769-ee5b-46cf-98f1-05b6191cf5c5&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;      Name  Age  Score</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;0    Alice   25     85</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1      Bob   30     95</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2  Charlie   35     70</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3    Alice   25     85</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4    David   45     88</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;5  Charlie   35     70</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;6      Eve   28     92</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;import pandas as pd</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;# Sample DataFrame with duplicate entries</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data = pd.DataFrame({</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;    </span><span class="s4">\&quot;</span><span class="s2">Name</span><span class="s4">\&quot;</span><span class="s2">: [</span><span class="s4">\&quot;</span><span class="s2">Alice</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">Bob</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">Charlie</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">Alice</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">David</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">Charlie</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">Eve</span><span class="s4">\&quot;</span><span class="s2">],</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;    </span><span class="s4">\&quot;</span><span class="s2">Age</span><span class="s4">\&quot;</span><span class="s2">: [25, 30, 35, 25, 45, 35, 28],</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;    </span><span class="s4">\&quot;</span><span class="s2">Score</span><span class="s4">\&quot;</span><span class="s2">: [85, 95, 70, 85, 88, 70, 92]</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;})</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;markdown&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;27ddcfda-c770-4bf0-b53c-8c9c7a2d91ae&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;This DataFrame has some duplicate rows, specifically rows with </span><span class="s4">\&quot;</span><span class="s2">Alice</span><span class="s4">\&quot; </span><span class="s2">and </span><span class="s4">\&quot;</span><span class="s2">Charlie</span><span class="s4">\&quot; </span><span class="s2">that appear twice.&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">12</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;2658a4db-d747-4b47-b8d8-3d10cdff0dab&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;0    False</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1    False</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2    False</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3     True</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4    False</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;5     True</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;6    False</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;dtype: bool</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Identify duplicated rows</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;duplicates = data.duplicated()</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(duplicates)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;markdown&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;9aabf622-42a6-47d6-be33-863502498c5f&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;The duplicated() method returns a Boolean Series indicating whether each row is a duplicate or not.&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">13</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;2dbf3f8a-c3d7-44bc-9381-e684600aaea6&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;      Name  Age  Score</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;0    Alice   25     85</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1      Bob   30     95</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2  Charlie   35     70</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4    David   45     88</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;6      Eve   28     92</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Drop duplicate rows</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data_no_duplicates = data.drop_duplicates()</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data_no_duplicates)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">15</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;b1ee0fc7-e44e-4db6-94b7-2a77f630005f&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;0    False</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1    False</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2    False</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3     True</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4    False</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;5     True</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;6    False</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;dtype: bool</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;print(duplicates)&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">16</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;6e1756a4-dd34-4cb5-8418-745bc167284a&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;      Name  Age  Score</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;0    Alice   25     85</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1      Bob   30     95</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2  Charlie   35     70</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4    David   45     88</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;6      Eve   28     92</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Drop duplicates based only on the 'Name' column</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data_unique_names = data.drop_duplicates(subset=[</span><span class="s4">\&quot;</span><span class="s2">Name</span><span class="s4">\&quot;</span><span class="s2">])</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data_unique_names)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;markdown&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;749ae5a8-042e-4bf4-a5b5-272eba542b08&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;This example drops duplicates based only on the </span><span class="s4">\&quot;</span><span class="s2">Name</span><span class="s4">\&quot; </span><span class="s2">column. It retains the first occurrence of each unique </span><span class="s4">\&quot;</span><span class="s2">Name</span><span class="s4">\&quot;</span><span class="s2">.&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">17</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;600b5657-d915-4b65-8f44-c24cfaad4b55&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;    fruit  price</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;0   apple    1.2</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1  banana    0.5</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2  cherry    2.5</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3  banana    0.5</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4   apple    1.2</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;5  cherry    2.5</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Sample data for transforming using a function or mapping</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data = pd.DataFrame({</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;    </span><span class="s4">\&quot;</span><span class="s2">fruit</span><span class="s4">\&quot;</span><span class="s2">: [</span><span class="s4">\&quot;</span><span class="s2">apple</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">banana</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">cherry</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">banana</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">apple</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">cherry</span><span class="s4">\&quot;</span><span class="s2">],</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;    </span><span class="s4">\&quot;</span><span class="s2">price</span><span class="s4">\&quot;</span><span class="s2">: [1.2, 0.5, 2.5, 0.5, 1.2, 2.5]</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;})</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;markdown&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;6d234683-3054-4556-b5b6-fd9e4bc93216&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;This DataFrame contains information about different fruits and their prices.</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">18</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;cf3e47af-71ce-4ca0-8d27-f467598cc345&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;    fruit  price   color</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;0   apple    1.2     red</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1  banana    0.5  yellow</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2  cherry    2.5     red</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3  banana    0.5  yellow</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4   apple    1.2     red</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;5  cherry    2.5     red</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Define a mapping from fruit to color</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;fruit_to_color = {</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;    </span><span class="s4">\&quot;</span><span class="s2">apple</span><span class="s4">\&quot;</span><span class="s2">: </span><span class="s4">\&quot;</span><span class="s2">red</span><span class="s4">\&quot;</span><span class="s2">,</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;    </span><span class="s4">\&quot;</span><span class="s2">banana</span><span class="s4">\&quot;</span><span class="s2">: </span><span class="s4">\&quot;</span><span class="s2">yellow</span><span class="s4">\&quot;</span><span class="s2">,</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;    </span><span class="s4">\&quot;</span><span class="s2">cherry</span><span class="s4">\&quot;</span><span class="s2">: </span><span class="s4">\&quot;</span><span class="s2">red</span><span class="s4">\&quot;\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;}</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;# Use the map method to apply this mapping</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data[</span><span class="s4">\&quot;</span><span class="s2">color</span><span class="s4">\&quot;</span><span class="s2">] = data[</span><span class="s4">\&quot;</span><span class="s2">fruit</span><span class="s4">\&quot;</span><span class="s2">].map(fruit_to_color)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;markdown&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;7385632f-402d-437a-b59f-183ea54ae63d&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;The map() method is used to transform each value in the </span><span class="s4">\&quot;</span><span class="s2">fruit</span><span class="s4">\&quot; </span><span class="s2">column based on the fruit_to_color dictionary.&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">42</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;6fa4a2a3-28c9-4f9d-9fd1-06184eb8c9be&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;0     100</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1    -999</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2     150</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3    -999</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4     200</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;5   -1000</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;6     250</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;dtype: int64</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Sample Series with placeholder values</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data = pd.Series([100, -999, 150, -999, 200, -1000, 250])</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;markdown&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;12d77610-8d76-4f0e-9f7a-2b01a6da1859&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;This Series contains some placeholder values (-999, -1000) that we want to replace with meaningful values.&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">43</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;2e53cb9a-d76b-4c4e-aafb-fd2279d5681d&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;0     100</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1    &lt;NA&gt;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2     150</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3    &lt;NA&gt;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4     200</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;5       0</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;6     250</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;dtype: object</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Replace placeholder values with NaN</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data_replaced = data.replace([-999, -1000], [pd.NA, 0])</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data_replaced)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;markdown&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;d500f8e7-6f36-4b72-89d7-a1cfb0e39615&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;The replace() method allows replacing multiple values with different replacements. Here, -999 is replaced by &lt;NA&gt; (missing value), and -1000 is replaced with 0.&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s4">null</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;4b1303e3-0710-4e6d-a912-17373b47fec4&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: []</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">44</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;5bfe4ee3-19eb-4a3c-87fb-6c6cbe074197&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;Data After In-place Replacement:</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;0     100</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1    -999</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2     150</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3    -999</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4     200</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;5   -1000</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;6     250</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;dtype: int64</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Replace placeholder values with NaN and 0 directly in the original data</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data.replace([-999, -1000], [pd.NA, 0]), #inplace=True)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(</span><span class="s4">\&quot;\\</span><span class="s2">nData After In-place Replacement:</span><span class="s4">\&quot;</span><span class="s2">)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;markdown&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;72f18e8c-df35-4bbb-9078-828c68f8b5a5&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;Explanation:</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;Using inplace=True in the replace() method directly modifies the original data Series, so when you print data again, the changes are reflected.</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;The replace() method changes the -999 values to &lt;NA&gt; (missing) and the -1000 value to 0 without needing to assign the result to a new variable.</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;Other Methods to Modify Data in Place</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;Apart from replace(), here are a few other common methods in pandas that support the inplace parameter:</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;fillna(): Fills missing values with a specified value.&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">29</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;1225da0a-8cf4-4334-bbd0-5acf52799388&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;Data After In-place Drop:</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;0    100</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1    999</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2    150</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3    999</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4    200</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;5      0</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;6    250</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;dtype: int64</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Example of dropping missing values in place, drop_duplicates(): Removes duplicate rows.</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data.dropna(inplace=True)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(</span><span class="s4">\&quot;\\</span><span class="s2">nData After In-place Drop:</span><span class="s4">\&quot;</span><span class="s2">)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">25</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;1ee26608-171d-4c80-8869-29f6597aa654&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;Data After In-place Fill:</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;0    100</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1    999</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2    150</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3    999</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4    200</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;5      0</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;6    250</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;dtype: int64</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Example of filling missing values in place</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data.fillna(999, inplace=True)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(</span><span class="s4">\&quot;\\</span><span class="s2">nData After In-place Fill:</span><span class="s4">\&quot;</span><span class="s2">)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">27</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;67e9a376-33b3-4a8e-9cf2-841a2ddfb3e6&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;Data After In-place Drop:</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;0    100</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1    999</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2    150</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3    999</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4    200</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;5      0</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;6    250</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;dtype: int64</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: []</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">8</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;0fe57177-22bf-41ee-8e74-98ec0a0e49de&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;      Name    Age        Salary</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;0    Alice  25.00  50000.000000</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1      Bob  38.75  60000.000000</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2  Charlie  35.00  63333.333333</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3    David  45.00  80000.000000</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4     None  50.00  63333.333333</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Filling missing data with column mean</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data['Age'] = data['Age'].fillna(data['Age'].mean())</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data['Salary'] = data['Salary'].fillna(data['Salary'].mean())</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">40</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;8b60dc07-3640-4513-88f5-3e7cf9fa698c&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;0     100</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1    &lt;NA&gt;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2     150</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3    &lt;NA&gt;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4     200</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;5       0</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;6     250</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;dtype: object</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Replace placeholder values with NaN</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data_replace = data.replace([-999, -1000], [pd.NA, 0])</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data_replaced)&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">36</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;353d570f-b5e8-40e5-8bc3-571f4c48a67c&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;0    100</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1    999</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2    150</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3    999</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4    200</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;5      0</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;6    250</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;dtype: int64</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Example of dropping missing values in place</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data_replace.dropna</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(</span><span class="s4">\&quot;\\</span><span class="s2">nData After In-place Drop:</span><span class="s4">\&quot;</span><span class="s2">)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data_replace)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">39</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;ce28719f-6fd4-4ffb-8ac3-65eef2f52ced&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;Data After In-place Sorting:</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;      Name   Age   Salary</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;0    Alice  25.0  50000.0</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;1      Bob   NaN  60000.0</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;2  Charlie  35.0      NaN</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;3    David  45.0  80000.0</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;4     None  50.0      NaN</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Example of sorting values in place</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data.sort_values # (inplace=True)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(</span><span class="s4">\&quot;\\</span><span class="s2">nData After In-place Sorting:</span><span class="s4">\&quot;</span><span class="s2">)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">50</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;38af50ed-fbf1-4e37-b0ca-0aa7b9f5d779&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;Original DataFrame:</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;        alpha  beta  gamma  delta</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;Berlin      0     1      2      3</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;Tokyo       4     5      6      7</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;Paris       8     9     10     11</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;London     12    13     14     15</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;import pandas as pd</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;import numpy as np</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;# Creating a new DataFrame</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data = pd.DataFrame(</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;    np.arange(16).reshape((4, 4)),</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;    index=[</span><span class="s4">\&quot;</span><span class="s2">Berlin</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">Tokyo</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">Paris</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">London</span><span class="s4">\&quot;</span><span class="s2">],</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;    columns=[</span><span class="s4">\&quot;</span><span class="s2">alpha</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">beta</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">gamma</span><span class="s4">\&quot;</span><span class="s2">, </span><span class="s4">\&quot;</span><span class="s2">delta</span><span class="s4">\&quot;</span><span class="s2">]</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(</span><span class="s4">\&quot;</span><span class="s2">Original DataFrame:</span><span class="s4">\&quot;</span><span class="s2">)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">51</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;812541af-fe0d-4adb-91c4-c5039ef167c6&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;Transformed Index using map:</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;     alpha  beta  gamma  delta</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;BER      0     1      2      3</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;TOK      4     5      6      7</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;PAR      8     9     10     11</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;LON     12    13     14     15</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Defining a transformation function</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;def transform(x):</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;    return x[:3].upper()</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;# Applying the map method to transform the index</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data.index = data.index.map(transform)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(</span><span class="s4">\&quot;\\</span><span class="s2">nTransformed Index using map:</span><span class="s4">\&quot;</span><span class="s2">)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">52</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;6c08ec2f-394b-4eb0-81a1-344877cff7f9&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;DataFrame After Using rename:</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;     Alpha  Beta  Gamma  Delta</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;Ber      0     1      2      3</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;Tok      4     5      6      7</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;Par      8     9     10     11</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;Lon     12    13     14     15</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Using rename to change index and column names</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data_renamed = data.rename(index=str.title, columns=str.capitalize)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(</span><span class="s4">\&quot;\\</span><span class="s2">nDataFrame After Using rename:</span><span class="s4">\&quot;</span><span class="s2">)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data_renamed)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s3">53</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;6cd27c76-efc9-4c46-b322-3dbf16443655&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [</span>
+    <span class="s0">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;stdout&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;output_type&quot;</span><span class="s0">: </span><span class="s2">&quot;stream&quot;</span><span class="s0">,</span>
+     <span class="s2">&quot;text&quot;</span><span class="s0">: [</span>
+      <span class="s2">&quot;</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;DataFrame After Renaming a Subset with Dictionary:</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;      alpha  beta  theta  delta</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;ROME      0     1      2      3</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;TOK       4     5      6      7</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;PAR       8     9     10     11</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+      <span class="s2">&quot;LON      12    13     14     15</span><span class="s4">\n</span><span class="s2">&quot;</span>
+     <span class="s0">]</span>
+    <span class="s0">}</span>
+   <span class="s0">],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: [</span>
+    <span class="s2">&quot;# Renaming a subset using a dictionary</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;data_subset_renamed = data.rename(index={</span><span class="s4">\&quot;</span><span class="s2">BER</span><span class="s4">\&quot;</span><span class="s2">: </span><span class="s4">\&quot;</span><span class="s2">ROME</span><span class="s4">\&quot;</span><span class="s2">}, columns={</span><span class="s4">\&quot;</span><span class="s2">gamma</span><span class="s4">\&quot;</span><span class="s2">: </span><span class="s4">\&quot;</span><span class="s2">theta</span><span class="s4">\&quot;</span><span class="s2">})</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(</span><span class="s4">\&quot;\\</span><span class="s2">nDataFrame After Renaming a Subset with Dictionary:</span><span class="s4">\&quot;</span><span class="s2">)</span><span class="s4">\n</span><span class="s2">&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;print(data_subset_renamed)</span><span class="s4">\n</span><span class="s2">&quot;</span>
+   <span class="s0">]</span>
+  <span class="s0">},</span>
+  <span class="s0">{</span>
+   <span class="s2">&quot;cell_type&quot;</span><span class="s0">: </span><span class="s2">&quot;code&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;execution_count&quot;</span><span class="s0">: </span><span class="s4">null</span><span class="s0">,</span>
+   <span class="s2">&quot;id&quot;</span><span class="s0">: </span><span class="s2">&quot;75c25634-9c11-4406-aff0-ba79395bf729&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;metadata&quot;</span><span class="s0">: {},</span>
+   <span class="s2">&quot;outputs&quot;</span><span class="s0">: [],</span>
+   <span class="s2">&quot;source&quot;</span><span class="s0">: []</span>
+  <span class="s0">}</span>
+ <span class="s0">],</span>
+ <span class="s2">&quot;metadata&quot;</span><span class="s0">: {</span>
+  <span class="s2">&quot;kernelspec&quot;</span><span class="s0">: {</span>
+   <span class="s2">&quot;display_name&quot;</span><span class="s0">: </span><span class="s2">&quot;Python 3 (ipykernel)&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;language&quot;</span><span class="s0">: </span><span class="s2">&quot;python&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;python3&quot;</span>
+  <span class="s0">},</span>
+  <span class="s2">&quot;language_info&quot;</span><span class="s0">: {</span>
+   <span class="s2">&quot;codemirror_mode&quot;</span><span class="s0">: {</span>
+    <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;ipython&quot;</span><span class="s0">,</span>
+    <span class="s2">&quot;version&quot;</span><span class="s0">: </span><span class="s3">3</span>
+   <span class="s0">},</span>
+   <span class="s2">&quot;file_extension&quot;</span><span class="s0">: </span><span class="s2">&quot;.py&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;mimetype&quot;</span><span class="s0">: </span><span class="s2">&quot;text/x-python&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;name&quot;</span><span class="s0">: </span><span class="s2">&quot;python&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;nbconvert_exporter&quot;</span><span class="s0">: </span><span class="s2">&quot;python&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;pygments_lexer&quot;</span><span class="s0">: </span><span class="s2">&quot;ipython3&quot;</span><span class="s0">,</span>
+   <span class="s2">&quot;version&quot;</span><span class="s0">: </span><span class="s2">&quot;3.11.7&quot;</span>
+  <span class="s0">}</span>
+ <span class="s0">},</span>
+ <span class="s2">&quot;nbformat&quot;</span><span class="s0">: </span><span class="s3">4</span><span class="s0">,</span>
+ <span class="s2">&quot;nbformat_minor&quot;</span><span class="s0">: </span><span class="s3">5</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>
